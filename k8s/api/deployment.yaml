@@ -23,14 +23,19 @@ spec:
           protocol: TCP
           name: https
         imagePullPolicy: IfNotPresent
+        envFrom:
+          - configMapRef:
+            name: api-configmap
         env:
-        - name: Mongo__Host
-          value: "mongo-service.ns-mongodb"
         - name: Mongo__User
-          value: "mongouser"
-        - name: Mongo_Password
-          value: "mongopwd"
-        - name: Mongo__Port
-          value: "27017"
-        - name: Mongo__Database
-          value: "admin"
+          valueFrom: 
+            configMapRef:
+              key: MONGO_INITDB_ROOT_USERNAME
+              value: mongodb-configmap
+        - name: Mongo__Password
+          valueFrom: 
+            configMapRef:
+              key: MONGO_INITDB_ROOT_PASSWORD
+              value: mongodb-configmap
+
+        
