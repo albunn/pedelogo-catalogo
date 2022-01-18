@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-deployment
+  namespace: ns-api
+spec:
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      containers:
+      - name: api
+        image: alexandrebunn/pedelogo-catalogo:v1.0.0
+        ports:
+        - containerPort: 80
+          protocol: TCP
+          name: http
+        - containerPort: 443
+          protocol: TCP
+          name: https
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: Mongo__Host
+          value: "mongo-service.ns-mongodb"
+        - name: Mongo__User
+          value: "mongouser"
+        - name: Mongo_Password
+          value: "mongopwd"
+        - name: Mongo__Port
+          value: "27017"
+        - name: Mongo__Database
+          value: "admin"
