@@ -25,17 +25,15 @@ spec:
         imagePullPolicy: IfNotPresent
         envFrom:
           - configMapRef:
-            name: api-configmap
+              name: api-configmap
         env:
         - name: Mongo__User
           valueFrom: 
-            configMapRef:
+            configMapKeyRef:
               key: MONGO_INITDB_ROOT_USERNAME
-              value: mongodb-configmap
+              name: mongodb-configmap
         - name: Mongo__Password
           valueFrom: 
-            configMapRef:
+            configMapKeyRef:
               key: MONGO_INITDB_ROOT_PASSWORD
-              value: mongodb-configmap
-
-        
+              name: mongodb-configmap

@@ -13,7 +13,7 @@ spec:
         app: mongodb
     spec:
       containers:
-        - name: momngodb
+        - name: mongodb
           image: mongo:4.2.8
           ports:
             - containerPort: 27017
